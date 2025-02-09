@@ -27,13 +27,17 @@ struct YourApp: App {
 #if DEBUG
         ContentView()
           .autoSignIn()
+          .showErrors()
 #else
         ContentView()
+          .showErrors()
 #endif
       }
     }
   }
 }
+
+// For development purpose
 
 struct AutoSignIn: ViewModifier {
   private let email = "test@test.cz"

@@ -9,16 +9,17 @@ import SwiftUI
 
 struct CreatingTodoListView: View {
   @Environment(\.firebaseManager) var firebaseManager
+  @Environment(\.`throw`) var `throw`
   var body: some View {
     Button("Add New ToDoList") {
       let element = ToDoList.samples.randomElement()
-      Task {
-        try? await firebaseManager.addToDoList(element!)
+      let _ = `throw`.task {
+        try await firebaseManager.addToDoList(element!)
       }
     }
-    }
+  }
 }
 
 #Preview {
-    CreatingTodoListView()
+  CreatingTodoListView()
 }

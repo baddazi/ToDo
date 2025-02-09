@@ -12,8 +12,8 @@
 		ED6738892D552D98000EF844 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = ED6738882D552D98000EF844 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		ED67388B2D552D98000EF844 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = ED67388A2D552D98000EF844 /* FirebaseAppCheck */; };
 		ED67388D2D552D98000EF844 /* FirebaseAppDistribution-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = ED67388C2D552D98000EF844 /* FirebaseAppDistribution-Beta */; };
-		ED6738B52D556B6A000EF844 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = ED6738B42D556B6A000EF844 /* FirebaseAuth */; };
-		ED6738BC2D569B61000EF844 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = ED6738BB2D569B61000EF844 /* FirebaseFirestore */; };
+		ED6739932D58CBDB000EF844 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = ED6739922D58CBDB000EF844 /* FirebaseFirestore */; };
+		ED6739952D58CBF4000EF844 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = ED6739942D58CBF4000EF844 /* FirebaseAuth */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,12 +63,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED67388B2D552D98000EF844 /* FirebaseAppCheck in Frameworks */,
-				ED6738B52D556B6A000EF844 /* FirebaseAuth in Frameworks */,
 				ED6738852D552D98000EF844 /* FirebaseAnalytics in Frameworks */,
 				ED67388D2D552D98000EF844 /* FirebaseAppDistribution-Beta in Frameworks */,
 				ED6738892D552D98000EF844 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				ED6738872D552D98000EF844 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
-				ED6738BC2D569B61000EF844 /* FirebaseFirestore in Frameworks */,
+				ED6739952D58CBF4000EF844 /* FirebaseAuth in Frameworks */,
+				ED6739932D58CBDB000EF844 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,7 +95,7 @@
 				ED6738552D551374000EF844 /* ToDo */,
 				ED6738662D551375000EF844 /* ToDoTests */,
 				ED6738702D551375000EF844 /* ToDoUITests */,
-				ED6738B32D556B6A000EF844 /* Frameworks */,
+				ED6739912D58CBDB000EF844 /* Frameworks */,
 				ED6738542D551374000EF844 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -110,7 +110,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		ED6738B32D556B6A000EF844 /* Frameworks */ = {
+		ED6739912D58CBDB000EF844 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -142,8 +142,8 @@
 				ED6738882D552D98000EF844 /* FirebaseAnalyticsWithoutAdIdSupport */,
 				ED67388A2D552D98000EF844 /* FirebaseAppCheck */,
 				ED67388C2D552D98000EF844 /* FirebaseAppDistribution-Beta */,
-				ED6738B42D556B6A000EF844 /* FirebaseAuth */,
-				ED6738BB2D569B61000EF844 /* FirebaseFirestore */,
+				ED6739922D58CBDB000EF844 /* FirebaseFirestore */,
+				ED6739942D58CBF4000EF844 /* FirebaseAuth */,
 			);
 			productName = ToDo;
 			productReference = ED6738532D551374000EF844 /* ToDo.app */;
@@ -631,15 +631,15 @@
 			package = ED6738832D552D98000EF844 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseAppDistribution-Beta";
 		};
-		ED6738B42D556B6A000EF844 /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = ED6738832D552D98000EF844 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
-		ED6738BB2D569B61000EF844 /* FirebaseFirestore */ = {
+		ED6739922D58CBDB000EF844 /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = ED6738832D552D98000EF844 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		ED6739942D58CBF4000EF844 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ED6738832D552D98000EF844 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

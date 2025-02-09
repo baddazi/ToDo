@@ -8,12 +8,17 @@
 import SwiftUI
 
 extension EnvironmentValues {
-    var user: User {
-        get { self[User.self] }
-        set { self[User.self] = newValue }
-    }
+  var user: User {
+    get { self[User.self] }
+    set { self[User.self] = newValue }
+  }
   var firebaseManager: FirebaseManager {
     get { self[FirebaseManager.self] }
     set { self[FirebaseManager.self] = newValue }
+  }
+  
+  var `throw`: Throw {
+    get { self[Throw.self] }
+    set { self[Throw.self] = newValue }
   }
 }
