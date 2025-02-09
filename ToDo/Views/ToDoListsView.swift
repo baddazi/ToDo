@@ -11,6 +11,7 @@ import SwiftUI
 struct ToDoListsView: View {
   @Environment(\.user) var user
   @Environment(\.firebaseManager) var firebaseManager
+  @Environment(\.`throw`) var `throw`
   @State var toDoLists: [ToDoList] = []
   var body: some View {
     VStack {
@@ -26,8 +27,10 @@ struct ToDoListsView: View {
         ToDoListItem(ToDoListItem: toDoList)
       }
     }
-    .task {
-      toDoLists = try! await firebaseManager.fetchToDoLists(user.id)
+    .onAppear {
+      let _ = `throw`.task {
+        toDoLists = try await firebaseManager.fetchToDoLists(user.id)
+      }
     }
   }
 }

@@ -10,9 +10,39 @@ import SwiftUI
 import FirebaseAuth
 
 struct SettingsView: View {
+  @Environment(\.`throw`) var `throw`
   var body: some View {
-    Button("Sign out") {
-      try? Auth.auth().signOut()
+    VStack {
+      Button("Test Error") {
+        testError()
+      }
+      Button("Test Errors") {
+        testErrors()
+      }
+      Button("Sign out") {
+        signOut()
+      }
     }
   }
+  
+  private func signOut() {
+    `throw`.try {
+      try Auth.auth().signOut()
+    }
+  }
+  
+  private func testError() {
+      `throw`.try {
+        throw SimpleError (" Testing error")
+      }
+  }
+  
+  private func testErrors() {
+    `throw`.try {throw SimpleError (" Testing error 1")}
+    `throw`.try {throw SimpleError (" Testing error 2")}
+    `throw`.try {throw SimpleError (" Testing error 3")}
+    `throw`.try {throw SimpleError (" Testing error 4")}
+   
+  }
+  
 }
