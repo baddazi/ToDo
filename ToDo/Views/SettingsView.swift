@@ -6,3 +6,13 @@
 //
 
 import Foundation
+import SwiftUI
+import FirebaseAuth
+
+struct SettingsView: View {
+  var body: some View {
+    Button("Sign out") {
+      try? Auth.auth().signOut()
+    }
+  }
+}

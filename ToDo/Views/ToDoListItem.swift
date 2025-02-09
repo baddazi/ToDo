@@ -8,11 +8,15 @@
 import SwiftUI
 
 struct ToDoListItem: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+  var ToDoListItem: ToDoList
+  var body: some View {
+    VStack {
+      Text(ToDoListItem.name)
+      Text(ToDoListItem.createdAt.formatted())
+    }
     }
 }
 
 #Preview {
-    ToDoListItem()
+  ToDoListItem(ToDoListItem: ToDoList.sample)
 }

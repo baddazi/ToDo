@@ -6,3 +6,27 @@
 //
 
 import Foundation
+import FirebaseAuth
+import SwiftUI
+
+struct User: Identifiable {
+  typealias ID = String
+  var id: ID
+  var name: String
+}
+
+extension User {
+  static func createUserFromFirebaseAuth(user: FirebaseAuth.User?) -> User? {
+    if let user = user{
+      return User(id: user.uid, name: user.displayName ?? user.email ?? "Anonymous")
+    }
+    return nil
+  }
+}
+
+extension User: EnvironmentKey {
+  // probably not perfect solution but I do not want to be optional.
+  static let defaultValue: User = User(id: "", name: "")
+}
+
+
