@@ -8,8 +8,14 @@
 import SwiftUI
 
 struct CreatingTodoListView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+  @Environment(\.firebaseManager) var firebaseManager
+  var body: some View {
+    Button("Add New ToDoList") {
+      let element = ToDoList.samples.randomElement()
+      Task {
+        try? await firebaseManager.addToDoList(element!)
+      }
+    }
     }
 }
 

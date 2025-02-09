@@ -12,4 +12,8 @@ extension EnvironmentValues {
         get { self[User.self] }
         set { self[User.self] = newValue }
     }
+  var firebaseManager: FirebaseManager {
+    get { self[FirebaseManager.self] }
+    set { self[FirebaseManager.self] = newValue }
+  }
 }

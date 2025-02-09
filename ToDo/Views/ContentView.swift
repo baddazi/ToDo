@@ -6,13 +6,44 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct ContentView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+  @State private var session: AuthStateDidChangeListenerHandle?
+  @State private var user: User?
+  
+  var body: some View {
+    Group {
+      if let user = user {
+        MainView()
+          .environment(\.user, user)
+      }
+      else {
+        SignInView()
+      }
     }
-}
-
-#Preview {
-    ContentView()
+    .onAppear {
+      listen()
+    }
+    .onDisappear {
+      stopListeninig()
+    }
+  }
+  
+  func listen() {
+    if let _ = session {
+      return
+    }
+    user = User.createUserFromFirebaseAuth(user: Auth.auth().currentUser)
+    session = Auth.auth().addStateDidChangeListener{ auth, user in
+      self.user = User.createUserFromFirebaseAuth(user: user)
+    }
+  }
+  
+  func stopListeninig() {
+    if let _ = session {
+      Auth.auth().removeStateDidChangeListener(session!)
+    }
+    session = nil
+  }
 }
