@@ -23,15 +23,10 @@ struct YourApp: App {
   @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
   var body: some Scene {
     WindowGroup {
-      NavigationView {
-#if DEBUG
+      NavigationStack {
         ContentView()
-          .autoSignIn()
+          //.autoSignIn()
           .showErrors()
-#else
-        ContentView()
-          .showErrors()
-#endif
       }
     }
   }
