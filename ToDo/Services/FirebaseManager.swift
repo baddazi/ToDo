@@ -10,22 +10,23 @@ import SwiftUI
 import FirebaseFirestore
 
 struct FirebaseManager {
-  private static let ref = Firestore.firestore()
+  private let ref = Firestore.firestore()
   
   
-  var fetchToDoLists: (User.ID) async throws -> [ToDoList] = { id in
+  func fetchToDoLists(userID: User.ID) async throws -> [ToDoList] {
     var toDoLists: [ToDoList] = []
     try await ref.collection("ToDoLists").getDocuments().documents.forEach { rawToDoList in
       let toDoList = try rawToDoList.data(as: ToDoList.self)
-      if toDoList.creator == id {
+      if toDoList.creator == userID {
         toDoLists.append(try rawToDoList.data(as: ToDoList.self))
       }
     }
     return toDoLists
   }
-  
-  var fetchToDoList: (ToDoList.ID) async throws -> ToDoList = { id in
-    guard let todoList = try await ref.collection("ToDoLists").getDocuments().documents.first(where: {
+    
+  func fetchToDoList(toDoList: ToDoList) async throws -> ToDoList {
+    guard let id = toDoList.id,
+      let todoList = try await ref.collection("ToDoLists").getDocuments().documents.first(where: {
       try $0.data(as: ToDoList.self).id == id })
             else {
       throw SimpleError("ToDoList not found")
@@ -33,14 +34,28 @@ struct FirebaseManager {
     return try todoList.data(as: ToDoList.self)
   }
   
-  var addToDoList: (ToDoList) async throws -> Void = { toDoList in
+  func addToDoList(toDoList: ToDoList) throws -> Void {
     try ref.collection("ToDoLists").addDocument(from: toDoList)
   }
   
-  var updateToDoList: (ToDoList) async throws -> Void = { toDoList in
+  func updateToDoList(toDoList: ToDoList) throws -> Void {
     guard let id = toDoList.id
-    else { throw SimpleError("Unable to update note")}
-    try ref.collection("notes").document(id).setData(from: toDoList)
+    else { throw SimpleError("Unable to update ToDoList")}
+    try ref.collection("ToDoLists").document(id).setData(from: toDoList)
+  }
+  
+  func deleteToDoList(toDoList: ToDoList) throws -> Void {
+    guard let id = toDoList.id
+    else { throw SimpleError("Unable to delete ToDoList")}
+    ref.collection("ToDoLists").document(id).delete()
+  }
+  
+  func deleteToDoItem(toDoList: ToDoList,toDoItem: ToDoItem) throws -> Void {
+    var updatedToDoList = toDoList
+    guard let index = toDoList.items.firstIndex(where: { $0.id == toDoItem.id })
+    else { throw SimpleError("Unable to delete ToDoList")}
+    updatedToDoList.items.remove(at: index)
+    try updateToDoList(toDoList: updatedToDoList)
   }
 }
 

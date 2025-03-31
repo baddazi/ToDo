@@ -13,6 +13,7 @@ struct User: Identifiable {
   typealias ID = String
   var id: ID
   var name: String
+  var invitaions: [Invitation] = []
 }
 
 extension User {

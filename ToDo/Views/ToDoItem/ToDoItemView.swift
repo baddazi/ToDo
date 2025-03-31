@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ToDoListItem: View {
+struct ToDoItemView: View {
   var ToDoListItem: ToDoList
   var body: some View {
     VStack {
@@ -18,5 +18,5 @@ struct ToDoListItem: View {
 }
 
 #Preview {
-  ToDoListItem(ToDoListItem: ToDoList.sample)
+  ToDoItemView(ToDoListItem: ToDoList.sample)
 }
