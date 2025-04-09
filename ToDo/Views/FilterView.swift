@@ -69,7 +69,7 @@ struct FilterView: View {
   private var prioriyFiler: some View {
     VStack {
       Text("Priority")
-      if currentFilter.priorityRange.lowerBound != currentFilter.priorityRange.upperBound {
+      if boundaries.priorityRange.lowerBound != boundaries.priorityRange.upperBound {
         HStack {
           Text("From")
           TextField("", value: Binding<Int> {
@@ -137,7 +137,7 @@ struct FilterView: View {
   private var createdAtFilter: some View {
     VStack {
       Text("Created at")
-      if currentFilter.createDateRange.lowerBound != boundaries.createDateRange.upperBound {
+      if boundaries.createDateRange.lowerBound != boundaries.createDateRange.upperBound {
         VStack {
           DatePicker("from:", selection: Binding<Date> {
             currentFilter.createDateRange.lowerBound
@@ -239,7 +239,7 @@ struct FilterView: View {
   private var updatedAtFilter: some View {
     VStack {
       Text("Updated at")
-      if currentFilter.updatedDateRange.lowerBound != currentFilter.updatedDateRange.upperBound {
+      if boundaries.updatedDateRange.lowerBound != boundaries.updatedDateRange.upperBound {
         VStack {
           DatePicker("from:", selection: Binding<Date> {
             currentFilter.updatedDateRange.lowerBound
@@ -346,7 +346,7 @@ struct FilterView: View {
         Toggle("Include not defined due date", isOn: $currentFilter.isNotDefineDueDateIncluded)
       }
       VStack {
-        if currentFilter.dueDateRange.lowerBound != currentFilter.dueDateRange.upperBound {
+        if boundaries.dueDateRange.lowerBound != boundaries.dueDateRange.upperBound {
           VStack {
             DatePicker("from:", selection: Binding<Date> {
               currentFilter.dueDateRange.lowerBound
