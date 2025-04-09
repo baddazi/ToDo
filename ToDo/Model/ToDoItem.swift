@@ -14,7 +14,7 @@ struct ToDoItem: Identifiable, Codable {
   var isCompleted = false
   var title: String
   var text: String?
-  var creationDate: Date = Date()
+  var creationDate: Date = Date.nowWithouSec()
   var dueDate: Date?
   var order: Int
 }
