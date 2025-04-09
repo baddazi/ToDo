@@ -12,6 +12,7 @@ struct ToDoListDetailView: View {
   @Environment(\.firebaseManager) var firebaseManager
   @Environment(\.`throw`) var `throw`
   
+  
   var updateToDoList: (ToDoList) -> Void
   @State var toDoItemtoDelete: ToDoItem?
   @State var deleteAllItems = false
@@ -20,7 +21,17 @@ struct ToDoListDetailView: View {
     VStack {
       List {
         ForEach($toDoList.items) { $item in
-          Text(item.title)
+          HStack {
+            Button {
+              toggleFinishItem(item: item)
+            } label: {
+              Image(systemName: item.isCompleted ? "circle.fill" : "circle")
+                .foregroundStyle(item.isCompleted ? .gray : .primary)
+            }
+            Text(item.title)
+              .strikethrough(item.isCompleted, color: .gray)
+              .foregroundStyle(item.isCompleted ? .gray : .primary)
+          }
         }
         .onDelete(perform: { item in
           `throw`.try {
@@ -48,12 +59,12 @@ struct ToDoListDetailView: View {
       }
       .navigationTitle(toDoList.name)
       .toolbar {
-        ToolbarItem(placement: .navigationBarTrailing) {
+        ToolbarItem(placement: .topBarTrailing) {
           Menu {
             EditButton()
             NavigationLink("Add Task", destination: CreatingToDoItemView())
             Divider()
-            Button("Smazat vše", role: .destructive, action: { deleteAllItems = true})
+            Button("Delete all", role: .destructive, action: { deleteAllItems = true})
           } label: {
             Image(systemName: "ellipsis.circle") // Tři tečky
           }
@@ -62,23 +73,30 @@ struct ToDoListDetailView: View {
     }
   }
   
-  func onDelete(toDoItemToDelete: ToDoItem) {
-    var temp = toDoList
+  func toggleFinishItem(item: ToDoItem) {
     `throw`.try {
-      guard let index = temp.items.firstIndex(of: toDoItemToDelete)
+      guard let index = toDoList.items.firstIndex(of: item)
+      else { throw SimpleError("Unable update Task")}
+      var item = item
+      item.isCompleted.toggle()
+      try firebaseManager.toggleFinishToDoItem(toDoList: toDoList, toDoItem: item)
+      toDoList.items[index] = item
+    }
+  }
+  
+  func onDelete(toDoItemToDelete: ToDoItem) {
+    `throw`.try {
+      guard let index = toDoList.items.firstIndex(of: toDoItemToDelete)
       else { throw SimpleError("Unable to delete Task")}
-      temp.items.remove(at: index)
-      try firebaseManager.updateToDoList(toDoList: temp)
-      toDoList = temp
+      toDoList.items.remove(at: index)
+      try firebaseManager.updateToDoList(toDoList: toDoList)
     }
   }
   
   func deleteAllToDoItems() {
-    var temp = toDoList
-    temp.items.removeAll()
     `throw`.try {
-      try firebaseManager.updateToDoList(toDoList: temp)
-      toDoList = temp
+      try firebaseManager.updateToDoList(toDoList: toDoList)
+      toDoList.items.removeAll()
     }
   }
   

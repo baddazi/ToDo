@@ -17,11 +17,13 @@ struct ToDoList: Identifiable, Codable {
   var description: String?
   var items: [ToDoItem] = []
   var sharedTo: [User.ID] = []
-  var createdAt: Date = Date()
+  var createdAt: Date = Date.nowWithouSec()
   var dueDate: Date?
-  var updatedAt: Date?
+  var updatedAt: Date = Date.nowWithouSec()
   var reletedTo: ID?
   var state: ToDoState = .created
+  var closed: Date?
+  var priority: Int = 1
           
 }
 
@@ -33,11 +35,11 @@ enum ToDoState: Codable {
 }
 
 extension ToDoList {
-  static let sample: ToDoList = .init(id: nil, creator: User.defaultValue.id, name: "Example", items: [.sample], createdAt: Date() - 10000)
+  static let sample: ToDoList = .init(id: nil, creator: User.defaultValue.id, name: "Example", items: [.sample], createdAt:  Date.creatingTestingDate(), updatedAt: Date.creatingTestingDate())
   static let samples: [ToDoList] = [
-    .init(id: nil, creator: "kYVFGL6sQGRfJvp9TQYYomeOOw93", name: "Test", items: [ToDoItem.getSampleWithOrder(order: 1)], createdAt: Date() - 10000),
-    .init(id: nil,creator: "kYVFGL6sQGRfJvp9TQYYomeOOw93", name: "Example", items: [ToDoItem.getSampleWithOrder(order: 1), ToDoItem.getSampleWithOrder(order: 2)], createdAt: Date()  + 10000),
-    .init(id: nil, creator: "kYVFGL6sQGRfJvp9TQYYomeOOw93", name: "Temp", items: [ToDoItem.getSampleWithOrder(order: 1)], createdAt: Date()),
-    .init(id: nil, creator: "kYVFGL6sQGRfJvp9TQYYomeOOw93", name: "ToDo", items: [ToDoItem.getSampleWithOrder(order: 1), ToDoItem.getSampleWithOrder(order: 2)], createdAt: Date() - 40000)
+    .init(id: nil, creator: "kYVFGL6sQGRfJvp9TQYYomeOOw93", name: "Test", items: [ToDoItem.getSampleWithOrder(order: 1)], createdAt: Date.creatingTestingDate(),dueDate: Date.dueTestingDate(), updatedAt: Date.creatingTestingDate(), priority: 200),
+    .init(id: nil,creator: "kYVFGL6sQGRfJvp9TQYYomeOOw93", name: "Example", items: [ToDoItem.getSampleWithOrder(order: 1), ToDoItem.getSampleWithOrder(order: 2)], createdAt: Date.creatingTestingDate(),dueDate: Date.dueTestingDate(), updatedAt: Date.creatingTestingDate(), priority: 40),
+    .init(id: nil, creator: "kYVFGL6sQGRfJvp9TQYYomeOOw93", name: "Temp", items: [ToDoItem.getSampleWithOrder(order: 1)], priority: 20),
+    .init(id: nil, creator: "kYVFGL6sQGRfJvp9TQYYomeOOw93", name: "ToDo", items: [ToDoItem.getSampleWithOrder(order: 1), ToDoItem.getSampleWithOrder(order: 2)], createdAt: Date.nowWithouSec(),dueDate: Date.dueTestingDate(),updatedAt: Date.nowWithouSec(), priority: 10)
   ]
 }

@@ -38,6 +38,21 @@ struct FirebaseManager {
     try ref.collection("ToDoLists").addDocument(from: toDoList)
   }
   
+  func toggleFinishToDoItem (toDoList: ToDoList, toDoItem: ToDoItem) throws -> Void {
+    var toDoItem = toDoItem
+    toDoItem.isCompleted.toggle()
+    try updateToDoItem(toDoList: toDoList, toDoItem:  toDoItem)
+  }
+  
+  func updateToDoItem(toDoList: ToDoList, toDoItem: ToDoItem) throws -> Void {
+    guard let id = toDoList.id,
+          let index = toDoList.items.firstIndex(of: toDoItem)
+    else { throw SimpleError("Unable to update ToDoList")}
+    var toDoList = toDoList
+    toDoList.items[index] = toDoItem
+    try ref.collection("ToDoLists").document(id).setData(from: toDoList)
+  }
+  
   func updateToDoList(toDoList: ToDoList) throws -> Void {
     guard let id = toDoList.id
     else { throw SimpleError("Unable to update ToDoList")}
