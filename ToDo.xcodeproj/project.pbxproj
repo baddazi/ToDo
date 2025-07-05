@@ -7,13 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		ED374CE12E19234500BB12DD /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = ED374CE02E19234500BB12DD /* SwiftUIIntrospect */; };
 		ED6B1EAD2D5A363F00FF93CE /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = ED6B1EAC2D5A363F00FF93CE /* FirebaseAnalytics */; };
 		ED6B1EAF2D5A363F00FF93CE /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = ED6B1EAE2D5A363F00FF93CE /* FirebaseAnalyticsOnDeviceConversion */; };
 		ED6B1EB12D5A363F00FF93CE /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = ED6B1EB02D5A363F00FF93CE /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		ED6B1EB32D5A363F00FF93CE /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = ED6B1EB22D5A363F00FF93CE /* FirebaseAppCheck */; };
 		ED6B1EB52D5A363F00FF93CE /* FirebaseAppDistribution-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = ED6B1EB42D5A363F00FF93CE /* FirebaseAppDistribution-Beta */; };
-		ED6B1EB82D5A366000FF93CE /* SwiftUIIntrospect in Frameworks */ = {isa = PBXBuildFile; productRef = ED6B1EB72D5A366000FF93CE /* SwiftUIIntrospect */; };
-		ED6B1EBC2D5A366000FF93CE /* SwiftUIIntrospect-Static in Frameworks */ = {isa = PBXBuildFile; productRef = ED6B1EBB2D5A366000FF93CE /* SwiftUIIntrospect-Static */; };
 		ED6B1EBE2D5A36A000FF93CE /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = ED6B1EBD2D5A36A000FF93CE /* FirebaseFirestore */; };
 		ED6B1EC02D5A36B600FF93CE /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = ED6B1EBF2D5A36B600FF93CE /* FirebaseAuth */; };
 		ED6B1F2E2D5E188400FF93CE /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = ED6B1F2D2D5E188400FF93CE /* GoogleSignIn */; };
@@ -95,11 +94,10 @@
 				ED6B1EB32D5A363F00FF93CE /* FirebaseAppCheck in Frameworks */,
 				ED6B1F2E2D5E188400FF93CE /* GoogleSignIn in Frameworks */,
 				ED6B1F302D5E188400FF93CE /* GoogleSignInSwift in Frameworks */,
+				ED374CE12E19234500BB12DD /* SwiftUIIntrospect in Frameworks */,
 				ED6B1EC02D5A36B600FF93CE /* FirebaseAuth in Frameworks */,
 				ED6B1EAD2D5A363F00FF93CE /* FirebaseAnalytics in Frameworks */,
 				ED6B1EB52D5A363F00FF93CE /* FirebaseAppDistribution-Beta in Frameworks */,
-				ED6B1EBC2D5A366000FF93CE /* SwiftUIIntrospect-Static in Frameworks */,
-				ED6B1EB82D5A366000FF93CE /* SwiftUIIntrospect in Frameworks */,
 				ED6B1EBE2D5A36A000FF93CE /* FirebaseFirestore in Frameworks */,
 				ED6B1EB12D5A363F00FF93CE /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				ED6B1EAF2D5A363F00FF93CE /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
@@ -177,13 +175,11 @@
 				ED6B1EB02D5A363F00FF93CE /* FirebaseAnalyticsWithoutAdIdSupport */,
 				ED6B1EB22D5A363F00FF93CE /* FirebaseAppCheck */,
 				ED6B1EB42D5A363F00FF93CE /* FirebaseAppDistribution-Beta */,
-				ED6B1EB72D5A366000FF93CE /* SwiftUIIntrospect */,
-				ED6B1EB92D5A366000FF93CE /* SwiftUIIntrospect-Dynamic */,
-				ED6B1EBB2D5A366000FF93CE /* SwiftUIIntrospect-Static */,
 				ED6B1EBD2D5A36A000FF93CE /* FirebaseFirestore */,
 				ED6B1EBF2D5A36B600FF93CE /* FirebaseAuth */,
 				ED6B1F2D2D5E188400FF93CE /* GoogleSignIn */,
 				ED6B1F2F2D5E188400FF93CE /* GoogleSignInSwift */,
+				ED374CE02E19234500BB12DD /* SwiftUIIntrospect */,
 			);
 			productName = ToDo;
 			productReference = ED6738532D551374000EF844 /* ToDo.app */;
@@ -269,8 +265,8 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				ED6B1EAB2D5A363F00FF93CE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				ED6B1EB62D5A366000FF93CE /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				ED6B1F2C2D5E188400FF93CE /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				ED374CDF2E19234500BB12DD /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = ED6738542D551374000EF844 /* Products */;
@@ -643,20 +639,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		ED374CDF2E19234500BB12DD /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.0;
+			};
+		};
 		ED6B1EAB2D5A363F00FF93CE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 11.8.1;
-			};
-		};
-		ED6B1EB62D5A366000FF93CE /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.3.0;
 			};
 		};
 		ED6B1F2C2D5E188400FF93CE /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
@@ -670,6 +666,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		ED374CE02E19234500BB12DD /* SwiftUIIntrospect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ED374CDF2E19234500BB12DD /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = SwiftUIIntrospect;
+		};
 		ED6B1EAC2D5A363F00FF93CE /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = ED6B1EAB2D5A363F00FF93CE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
@@ -694,21 +695,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = ED6B1EAB2D5A363F00FF93CE /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseAppDistribution-Beta";
-		};
-		ED6B1EB72D5A366000FF93CE /* SwiftUIIntrospect */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = ED6B1EB62D5A366000FF93CE /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
-			productName = SwiftUIIntrospect;
-		};
-		ED6B1EB92D5A366000FF93CE /* SwiftUIIntrospect-Dynamic */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = ED6B1EB62D5A366000FF93CE /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
-			productName = "SwiftUIIntrospect-Dynamic";
-		};
-		ED6B1EBB2D5A366000FF93CE /* SwiftUIIntrospect-Static */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = ED6B1EB62D5A366000FF93CE /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
-			productName = "SwiftUIIntrospect-Static";
 		};
 		ED6B1EBD2D5A36A000FF93CE /* FirebaseFirestore */ = {
 			isa = XCSwiftPackageProductDependency;

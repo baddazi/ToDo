@@ -10,10 +10,10 @@ import FirebaseFirestore
 struct Invitation: Codable {
   typealias ID = String?
   @DocumentID var id: ID
-  var toDoListID: ToDoList.ID
+  var todoListID: TodoList.ID
   var from: User.ID
   var to: User.ID
-  var toDoList: ToDoList.ID
+  var todoList: TodoList.ID
   var status: InvitationStatus = .pending
 }
 

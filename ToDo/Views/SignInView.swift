@@ -24,14 +24,22 @@ struct SignInView: View {
   @Environment(\.`throw`) var `throw`
   var body: some View {
     VStack {
+      Spacer()
+        .frame(maxHeight:50)
       emailSignInUP
-      signInUpButton
       if signInType == .signIn {
         forgetPassword
       }
+      Spacer()
+        .frame(maxHeight:50)
+      signInUpButton
+      Spacer()
+        .frame(maxHeight:50)
       singInGoogleButton
+        .padding(.bottom)
       switchingSignInUp
     }
+    .padding()
     .navigationTitle("Welcome to ToDo")
     .introspect(.viewController, on: .iOS(.v13, .v14, .v15, .v16, .v17, .v18)) {
       uiViewController = $0
@@ -53,11 +61,18 @@ struct SignInView: View {
   
   private var emailSignInUP: some View {
     VStack {
-      Text("Please sign in to you accout")
+      Text(signInType == .signIn ? "Sign In" : "Sign Up")
+        .font(.title)
       TextField("email", text: $email)
+        .keyboardType(.emailAddress)
+        .textInputAutocapitalization(.never)
+        .disableAutocorrection(true)
+        .textFieldStyle(.roundedBorder)
       SecureField("Password", text: $password)
+        .textFieldStyle(.roundedBorder)
       if signInType == .signUp {
         SecureField("Confirm Password", text: $confirmePassword)
+          .textFieldStyle(.roundedBorder)
       }
       
     }
@@ -93,8 +108,10 @@ struct SignInView: View {
         ProgressView()
       } else {
         Text(signInType == .signIn ? "Sign in" : "Sign up")
+          .frame(maxWidth: .infinity)
       }
     }
+    .buttonStyle(.bordered)
   }
   
   private var singInGoogleButton: some View {
