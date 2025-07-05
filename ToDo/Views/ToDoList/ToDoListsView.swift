@@ -1,5 +1,5 @@
 //
-//  ToDoListsView.swift
+//  todoListsView.swift
 //  ToDo
 //
 //  Created by David Záruba on 06.02.2025.
@@ -7,36 +7,49 @@
 import Foundation
 import SwiftUI
 
-struct ToDoListsView: View {
+struct TodoListsView: View {
   @Environment(\.user) var user
   @Environment(\.firebaseManager) var firebaseManager
   @Environment(\.`throw`) var `throw`
-  @State var toDoLists: [ToDoList] = []
+  @Environment(\.editMode) private var editMode
+  @Environment(\.scenePhase) private var scenePhase
+  
+  @State var todoLists: [TodoList] = []
   @State private var isFilterPresented = false
   @State private var sortingType: SortingType = .priorityIncreasing
-  @State private var editMode: EditMode = .inactive
+  @State private var edit: EditMode = .inactive
   @State private var activeFilter: Filter?
+  @State private var completedTodoList: CompletedTodoList = .both
+  @State private var searchText: String = ""
+  @State private var isLoading: Bool = true
   
   var body: some View {
-    list
-      .onAppear {
-        fetchToDoLists()
-      }
-      .sheet(isPresented: $isFilterPresented, content: {
-        FilterView(toDoLists: toDoLists, boundaries: Filter(toDoLists: toDoLists), activeFilter: $activeFilter, currentFilter: activeFilter ?? Filter(toDoLists: toDoLists))
-      })
-      .onChange(of: sortingType) {
+    VStack {
+        list
+    }
+    .navigationTitle("Todo lists")
+    .searchable(text: $searchText)
+    .onAppear {
+      deleteTodoListMarkToDelete()
+      edit = .inactive
+      fetchTodoLists()
+      isLoading = false
+    }
+    .sheet(isPresented: $isFilterPresented, content: {
+      FilterView(todoLists: todoLists, boundaries: Filter(todoLists: todoLists), activeFilter: $activeFilter, currentFilter: activeFilter ?? Filter(todoLists: todoLists), completedTodoListActive: $completedTodoList, completedTodoList: completedTodoList)
+    })
+    .onChange(of: sortingType) {
         withAnimation {
           sort()
         }
       }
       .toolbar {
-        if editMode == .active {
+        if edit == .active {
           ToolbarItem(placement: .navigationBarTrailing)
           {
             Button("Done") {
               withAnimation {
-                editMode = .inactive
+                edit = .inactive
               }
             }
           }
@@ -62,10 +75,20 @@ struct ToDoListsView: View {
     Menu {
       Button("Edit") {
         withAnimation {
-          editMode = .active
+          edit = .active
         }
       }
-      NavigationLink("Add To-Do List", destination: CreatingTodoListView())
+      NavigationLink("Add Todo List", destination:
+                      CreatingTodoListView()
+        .environment(\.user, user)
+        .environment(\.throw, `throw`))
+      NavigationLink("Recently deleted", destination:
+                      RecentlyDeletedView()
+       .environment(\.user, user)
+       .environment(\.throw, `throw`))
+      NavigationLink("Settings", destination:
+                      SettingsView()
+        .environment(\.throw, `throw`))
     } label: {
       Image(systemName: "ellipsis.circle")
     }
@@ -74,23 +97,22 @@ struct ToDoListsView: View {
   @ViewBuilder
   private var list: some View {
     List {
-      ForEach(filterToDoLists()) { toDoList in
-        NavigationLink(destination: ToDoListDetailView(toDoList: toDoList, updateToDoList: {_ in fetchToDoLists() }), label: {
-            ToDoItemView(ToDoListItem: toDoList)
+      ForEach(searchedTodoLists(todoLists: filterTodoLists())) { todoList in
+        NavigationLink(destination: TodoListDetailView(todoList: todoList), label: {
+            TodoListItemView(todoListItem: todoList)
         })
       }
       .onDelete(perform: { index in
         `throw`.try {
-          guard let itemToDelete = index.first else { throw SimpleError("Unable to delete ToDoList")}
-          deleteToDoList(toDoListToDelete: toDoLists[itemToDelete])
+          guard let itemToDelete = index.first else { throw SimpleError("Unable to delete todoList")}
+          deleteTodoList(todoListToDelete: todoLists[itemToDelete])
         }
       })
-    
     }
     .refreshable {
-      fetchToDoLists()
+      fetchTodoLists()
     }
-    .environment(\.editMode, $editMode)
+    .environment(\.editMode, $edit)
   }
   
   private var sortingMenu: some View {
@@ -122,67 +144,99 @@ struct ToDoListsView: View {
     }
   }
   
+  private func deleteTodoListMarkToDelete() {
+    let _ = `throw`.task {
+     try await firebaseManager.deleteTodoListAfterXDays(userID: user.id, days: countOfDayToDeleteTodoList)
+    }
+  }
+  
   func sort() {
       switch sortingType {
       case .priorityIncreasing:
-        toDoLists.sort { $0.priority < $1.priority }
+        todoLists.sort { $0.priority < $1.priority }
       case .priorityDecreasing:
-        toDoLists.sort { $0.priority > $1.priority }
+        todoLists.sort { $0.priority > $1.priority }
       case .createdAtIncreasing:
-        toDoLists.sort { $0.createdAt < $1.createdAt }
+        todoLists.sort { $0.createdAt < $1.createdAt }
       case .createdAtDecreasing:
-        toDoLists.sort { $0.createdAt > $1.createdAt }
+        todoLists.sort { $0.createdAt > $1.createdAt }
       case .dueDateIncreasing:
-        toDoLists.sort {
+        todoLists.sort {
           let dueDate1 = $0.dueDate ?? Date.distantFuture
           let dueDate2 = $1.dueDate ?? Date.distantFuture
           return dueDate1 < dueDate2
         }
       case .dueDateDecreasing:
-        toDoLists.sort {
+        todoLists.sort {
           let dueDate1 = $0.dueDate ?? Date.distantPast
           let dueDate2 = $1.dueDate ?? Date.distantPast
           return dueDate1 > dueDate2
         }
       case .updatedAtIncreasing:
-        toDoLists.sort { $0.updatedAt < $1.updatedAt }
+        todoLists.sort { $0.updatedAt < $1.updatedAt }
       case .updatedAtDecreasing:
-        toDoLists.sort { $0.updatedAt > $1.updatedAt }
+        todoLists.sort { $0.updatedAt > $1.updatedAt }
       }
   }
   
-  func fetchToDoLists() {
+  func fetchTodoLists() {
     let _ = `throw`.task {
-      toDoLists = try await firebaseManager.fetchToDoLists(userID: user.id)
+      todoLists = try await firebaseManager.fetchTodoLists(userID: user.id)
       sort()
     }
   }
   
-  func filterToDoLists() -> [ToDoList] {
-    if activeFilter != nil  {
-      return activeFilter!.filterToDoList(toDoLists: toDoLists)
+  func filterTodoLists() -> [TodoList] {
+    if activeFilter != nil {
+      return activeFilter!.filterTodoList(todoLists: todoLists, state: completedTodoList)
     }
-    return toDoLists
+    return todoLists
   }
   
-  func deleteToDoList(toDoListToDelete: ToDoList?) {
-    let _ = `throw`.task {
-      guard let toDoListToDelete else { throw SimpleError("Unable to delete ToDoList") }
-      try firebaseManager.deleteToDoList(toDoList: toDoListToDelete)
-      await MainActor.run {
-        withAnimation {
-          toDoLists.removeAll { $0.id == toDoListToDelete.id }
+  func searchedTodoLists(todoLists: [TodoList]) -> [TodoList] {
+    if searchText.isEmpty {
+        return todoLists
+    } else {
+        return todoLists.filter {
+            $0.name.lowercased().contains(searchText.lowercased())
         }
-      }
     }
   }
+  
+  func updateTodoList(todoList: TodoList) {
+    let _ = `throw`.task {
+      try firebaseManager.updateTodoList(todoList: todoList)
+     todoLists = try await firebaseManager.fetchTodoLists(userID: user.id)
+     sort()
+    }
+  }
+  func deleteTodoList(todoListToDelete: TodoList?) {
+    let _ = `throw`.task {
+      guard var todoListToDelete else { throw SimpleError("Unable to delete todoList") }
+      todoListToDelete.markedToDelete = Date()
+      try firebaseManager.updateTodoList(todoList: todoListToDelete)
+      fetchTodoLists()
+    }
+  }
+  
+//  func deleteTodoList(todoListToDelete: todoList?) {
+//    let _ = `throw`.task {
+//      guard let todoListToDelete else { throw SimpleError("Unable to delete todoList") }
+//      try firebaseManager.deleteTodoList(todoList: todoListToDelete)
+//      await MainActor.run {
+//        withAnimation {
+//          todoLists.removeAll { $0.id == todoListToDelete.id }
+//        }
+//      }
+//    }
+//  }
 }
-#Preview {
-  ToDoListsView(toDoLists: ToDoList.samples)
-}
+//#Preview {
+//  todoListsView(todoLists: todoList.samples)
+//}
 
 
-extension ToDoListsView {
+extension TodoListsView {
   private enum SortingType {
     case priorityIncreasing
     case priorityDecreasing

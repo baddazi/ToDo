@@ -11,6 +11,7 @@ import FirebaseAuth
 
 struct SettingsView: View {
   @Environment(\.`throw`) var `throw`
+  @Environment(\.dismiss) var dismiss
   var body: some View {
     VStack {
       Button("Test Error") {
@@ -21,6 +22,7 @@ struct SettingsView: View {
       }
       Button("Sign out") {
         signOut()
+        dismiss()
       }
     }
   }

@@ -9,9 +9,9 @@ import SwiftUI
 struct Throw: EnvironmentKey {
   static var defaultValue: Self = .init()
   var handleError: (Error) -> Void = { error in
-#if DEBUG
-    raise(SIGINT) // trigger a breakpoint
-#endif
+//#if DEBUG
+//    raise(SIGINT) // trigger a breakpoint
+//#endif
   }
 }
 

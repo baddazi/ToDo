@@ -13,7 +13,7 @@ import Foundation
 struct Project: Identifiable{
   var id: UUID = UUID()
   var name: String
-  var TodoLists: [ToDoList] = []
+  var todoLists: [TodoList] = []
   
   
 }

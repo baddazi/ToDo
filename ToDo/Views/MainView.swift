@@ -9,16 +9,16 @@ import SwiftUI
 
 struct MainView: View {
   var body: some View {
-    TabView {
-      ToDoListsView()
-        .tabItem {
-          Label("Main", systemImage: "house")
-        }
-      SettingsView()
-        .tabItem {
-          Label("Settings", systemImage: "gear")
-        }
-    }
+//    TabView {
+      TodoListsView()
+//        .tabItem {
+//          Label("Main", systemImage: "house")
+//        }
+//      SettingsView()
+//        .tabItem {
+//          Label("Settings", systemImage: "gear")
+//        }
+//    }
   }
 }
 
