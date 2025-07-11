@@ -4,10 +4,6 @@
 //
 //  Created by David Záruba on 31.03.2025.
 
-
-// TODO: DoubleSlider, acepteble movemnt only three top.
-
-
 import SwiftUI
 
 struct FilterView: View {

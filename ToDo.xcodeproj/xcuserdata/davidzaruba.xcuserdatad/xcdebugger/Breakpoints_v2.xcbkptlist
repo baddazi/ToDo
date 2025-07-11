@@ -338,50 +338,6 @@
             endingLineNumber = "86"
             landmarkName = "fetchTodoList()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "84C6B4D7-8615-4A26-B707-1881729755BA - 7df5787294a5c420"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(1) suspend resume partial function for closure #1 () async throws -&gt; () in ToDo.TodoListDetailView.fetchTodoList() -&gt; ()"
-                  moduleName = "ToDo.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/davidzaruba/Swift/Demo,%20others/ToDo/ToDo/Views/ToDoList/ToDoListDetailView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "86"
-                  endingLineNumber = "86">
-               </Location>
-               <Location
-                  uuid = "84C6B4D7-8615-4A26-B707-1881729755BA - eef7c3c932820822"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(3) suspend resume partial function for closure #1 () async throws -&gt; () in ToDo.TodoListDetailView.fetchTodoList() -&gt; ()"
-                  moduleName = "ToDo.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/davidzaruba/Swift/Demo,%20others/ToDo/ToDo/Views/ToDoList/ToDoListDetailView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "86"
-                  endingLineNumber = "86">
-               </Location>
-               <Location
-                  uuid = "84C6B4D7-8615-4A26-B707-1881729755BA - a771661b81efea25"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(4) suspend resume partial function for closure #1 () async throws -&gt; () in ToDo.TodoListDetailView.fetchTodoList() -&gt; ()"
-                  moduleName = "ToDo.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/davidzaruba/Swift/Demo,%20others/ToDo/ToDo/Views/ToDoList/ToDoListDetailView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "86"
-                  endingLineNumber = "86">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
