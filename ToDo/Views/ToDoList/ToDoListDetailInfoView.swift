@@ -43,7 +43,7 @@ struct TodoListDetailInfoView: View {
         }
       }
       .alert(item: $message) { message in
-        Alert(title: Text("Wrong imput"), message: Text(message.message), dismissButton: .default(Text("OK")))
+        Alert(title: Text(message.title), message: Text(message.message), dismissButton: .default(Text("OK")))
       }
       .padding()
     }
@@ -143,12 +143,12 @@ struct TodoListDetailInfoView: View {
   
   private func verifyInputs() {
     if todoListNewValues.name.isEmpty {
-      message = AlertMessage(message: "Name is required")
+      message = AlertMessage(title: "Wrong imput", message: "Name is required")
       return
     }
     
     if !(0...1000).contains(Double(todoListNewValues.priority)) {
-      message =  AlertMessage(message: "Priority needs to be in range 0 to 1000")
+      message =  AlertMessage(title: "Wrong imput", message: "Priority needs to be in range 0 to 1000")
       return
     }
     
