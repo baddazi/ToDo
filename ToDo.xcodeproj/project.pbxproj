@@ -17,6 +17,7 @@
 		ED6B1EC02D5A36B600FF93CE /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = ED6B1EBF2D5A36B600FF93CE /* FirebaseAuth */; };
 		ED6B1F2E2D5E188400FF93CE /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = ED6B1F2D2D5E188400FF93CE /* GoogleSignIn */; };
 		ED6B1F302D5E188400FF93CE /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = ED6B1F2F2D5E188400FF93CE /* GoogleSignInSwift */; };
+		EDED90452E21173500E139D5 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = EDED90442E21172900E139D5 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		ED6738532D551374000EF844 /* ToDo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED6738632D551375000EF844 /* ToDoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToDoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED67386D2D551375000EF844 /* ToDoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToDoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EDED90442E21172900E139D5 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -124,6 +126,7 @@
 		ED67384A2D551374000EF844 = {
 			isa = PBXGroup;
 			children = (
+				EDED90442E21172900E139D5 /* README.md */,
 				ED6738552D551374000EF844 /* ToDo */,
 				ED6738662D551375000EF844 /* ToDoTests */,
 				ED6738702D551375000EF844 /* ToDoUITests */,
@@ -285,6 +288,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDED90452E21173500E139D5 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
