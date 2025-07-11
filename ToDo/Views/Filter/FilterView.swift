@@ -14,29 +14,31 @@ struct FilterView: View {
   @State var currentFilter: Filter
   @Binding var completedTodoListActive: CompletedTodoList
   @State var completedTodoList: CompletedTodoList
+  @State var message: AlertMessage?
   
   var body: some View {
     NavigationStack {
       ScrollView {
         VStack {
           if todoLists.count > 1 {
-            Section(header: Text("Priority")) {
+            Section(header: priorityHeader)
+            {
               prioriyFiler
             }
             Divider()
-            Section(header: Text("Completion status")) {
+            Section(header: completationStatusHeader) {
               competedTaskFilter
             }
             Divider()
-            Section(header: Text("Created at")) {
+            Section(header: createdAtHeader) {
               createdAtFilter
             }
             Divider()
-            Section(header: Text("Updated at")) {
+            Section(header: updatedAtHeader) {
               updatedAtFilter
             }
             Divider()
-            Section(header: Text("Due date")) {
+            Section(header: dueDateHeader) {
               dueDateFilter
             }
             Spacer()
@@ -45,6 +47,9 @@ struct FilterView: View {
             Text("Not enough ToDo Lists to apply filter")
           }
         }
+      }
+      .alert(item: $message) { message in
+        Alert(title: Text(message.title), message: Text(message.message), dismissButton: .default(Text("OK")))
       }
       .navigationTitle("Filter")
       .toolbar {
@@ -77,6 +82,61 @@ struct FilterView: View {
           }
           .disabled(isClearDisable())
         }
+      }
+    }
+  }
+  
+  private var priorityHeader: some View {
+    HStack {
+      Text("Priority")
+      Button {
+        message = AlertMessage(title: "Priority Filter", message: "The Priority filter can only range from 0 to 1000. This range is further narrowed down based on the minimum and maximum priority values of the existing Todo lists")
+      } label: {
+        Image(systemName: "info.circle")
+      }
+    }
+  }
+  
+  private var completationStatusHeader: some View {
+    HStack {
+      Text("Completation Status")
+      Button {
+        message = AlertMessage(title: "Completation Status", message: "Completion status is a value indicating whether a Todo list is completed. If the ‘Both’ option is selected, the filtered results will include Todo lists with both completion states")
+      } label: {
+        Image(systemName: "info.circle")
+      }
+    }
+  }
+  
+  private var createdAtHeader: some View {
+    HStack {
+      Text("Created at")
+      Button {
+        message = AlertMessage(title: "Created at", message: "Filter ToDo lists by creation date.")
+      } label: {
+        Image(systemName: "info.circle")
+      }
+    }
+  }
+  
+  private var updatedAtHeader: some View {
+    HStack {
+      Text("Updated at")
+      Button {
+        message = AlertMessage(title: "Updated at", message: "Filters Todo lists by update date. Whenever any change is made to a Todo list, the current date is saved as the update date.")
+      } label: {
+        Image(systemName: "info.circle")
+      }
+    }
+  }
+  
+  private var dueDateHeader: some View {
+    HStack {
+      Text("Due date")
+      Button {
+        message = AlertMessage(title: "Due date", message: "Due date is the planned completion date of the Todo list. The ‘Include undefined due date’ option determines whether Todo lists without a defined due date are included or excluded in the filtered results.")
+      } label: {
+        Image(systemName: "info.circle")
       }
     }
   }
@@ -116,6 +176,7 @@ struct FilterView: View {
       }
     }
   }
+  
   private var createdAtFilter: some View {
     VStack {
       if boundaries.createDateRange.lowerBound != boundaries.createDateRange.upperBound {
@@ -145,6 +206,7 @@ struct FilterView: View {
       }
     }
   }
+  
   private var updatedAtFilter: some View {
     VStack {
       if boundaries.updatedDateRange.lowerBound != boundaries.updatedDateRange.upperBound {
@@ -174,6 +236,7 @@ struct FilterView: View {
       }
     }
   }
+  
   private var dueDateFilter: some View {
     VStack {
       if todoLists.filter({$0.dueDate == nil}).count != 0 {
@@ -209,6 +272,7 @@ struct FilterView: View {
       }
     }
   }
+  
   private var competedTaskFilter: some View {
     Picker("Priority", selection: $completedTodoList) {
       ForEach(CompletedTodoList.allCases) { option in

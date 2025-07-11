@@ -41,7 +41,7 @@ struct CreatingTodoListView: View {
         }
       }
       .alert(item: $message) { message in
-        Alert(title: Text("Wrong imput"), message: Text(message.message), dismissButton: .default(Text("OK")))
+        Alert(title: Text(message.title), message: Text(message.message), dismissButton: .default(Text("OK")))
       }
       .padding()
     }
@@ -94,12 +94,12 @@ struct CreatingTodoListView: View {
   
   private func create() {
     if name.isEmpty {
-      message = AlertMessage(message: "Name is required")
+      message = AlertMessage(title: "Wrong imput", message: "Name is required")
       return
     }
     
     if !(0...1000).contains(priority) {
-      message = AlertMessage(message: "Priority must be between 0 and 1000")
+      message = AlertMessage(title: "Wrong imput", message: "Priority must be between 0 and 1000")
       return
     }
     

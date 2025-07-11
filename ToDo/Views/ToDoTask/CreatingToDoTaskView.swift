@@ -43,14 +43,14 @@ struct CreatingToDoTaskView: View {
     }
     .navigationTitle("Add Task")
     .padding()
-    .alert(item:  $message) {_ in
-      Alert(title: Text("Wrong input"), message: Text(message?.message ?? ""), dismissButton: .default(Text("OK")))
+    .alert(item:  $message) { message in
+      Alert(title: Text(message.title), message: Text(message.message), dismissButton: .default(Text("OK")))
     }
   }
   
   func createTask() {
     if title.isEmpty {
-      message = AlertMessage(message: "Title cannot be empty")
+      message = AlertMessage(title: "Wrong input", message: "Title cannot be empty")
       return
     }
     let _ = `throw`.task {
